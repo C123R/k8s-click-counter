@@ -1,0 +1,87 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: click-counter
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: click-counter-backend
+  namespace: click-counter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - image: cizi/click-counter-backend
+        name: click-counter-backend-pod
+        ports:
+        - containerPort: 9001
+          name: http
+        resources:
+          requests:
+            cpu: 100m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: click-counter-backend-svc
+  namespace: click-counter
+spec:
+  selector:
+    app: backend
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 9001
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: click-counter-frontend
+  namespace: click-counter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - env:
+        - name: BACKEND_SERVICE
+          value: "http://click-counter-backend-svc/api/counter"
+        image: cizi/click-counter-frontend
+        name: click-counter-frontend-pod
+        ports:
+        - containerPort: 9000
+          name: http
+        resources:
+          requests:
+            cpu: 100m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: click-counter-frontend-svc
+  namespace: click-counter
+spec:
+  selector:
+    app: frontend
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 9000
+---
