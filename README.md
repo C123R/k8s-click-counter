@@ -42,3 +42,9 @@ kubectl delete -f https://raw.githubusercontent.com/C123R/k8s-click-counter/mast
 
 # it will create a namespace with your userid(whoami)
 ```
+
+Since we are creating service as cluster type, we cant access it from outside our cluster. Still you can do it using `kubectl port-forward`.
+
+```sh
+kubectl port-forward service/click-counter-frontend-svc :80 -n $(whoami)
+```

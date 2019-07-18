@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css">
-  <title>Click Counter</title>
+  <title>{{.PageTitle}}</title>
 </head>
 <body>
   <div class="container text-center">
@@ -25,7 +25,7 @@
 	<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
 	<script>
 		function counter() { 
-			fetch({{.BackendService}})
+			fetch('/count')
 			.then(response => response.json())
 			.then(data => {
 				document.getElementById("count").innerText = data
