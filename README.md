@@ -1,6 +1,6 @@
 # **k8s-click-counter**
 
-K8s-click-counter is demo application, can be used for the Kubernetes workshops.
+K8s-click-counter is a demo application, can be used for the Kubernetes workshops.
 
 This demo app runs across two containers:
 
