@@ -38,7 +38,7 @@ You can access the frontend on: http://localhost:9000
 Deploy it on Kubernetes cluster:
 
 ```sh
-kubectl delete -f https://raw.githubusercontent.com/C123R/k8s-click-counter/master/k8s-click-counter.yaml -n $(whoami)
+kubectl apply -f https://raw.githubusercontent.com/C123R/k8s-click-counter/master/k8s-click-counter.yaml -n $(whoami)
 
 # it will create a namespace with your userid(whoami)
 ```
